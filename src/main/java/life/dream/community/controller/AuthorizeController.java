@@ -1,6 +1,8 @@
 package life.dream.community.controller;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import life.dream.community.dto.AccessTokenDTO;
 import life.dream.community.dto.GithubUser;
 import life.dream.community.mapper.UserMapper;
@@ -11,8 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import reactor.netty.http.server.HttpServerRequest;
-
 import java.util.UUID;
 
 @Controller
@@ -33,7 +33,8 @@ public class AuthorizeController {
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code") String code,
                            @RequestParam(name="state") String state,
-                           HttpServletRequest request){
+                           HttpServletRequest request,
+                           HttpServletResponse response){
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
@@ -44,13 +45,15 @@ public class AuthorizeController {
         GithubUser githubUser = githubProvider.getUser(accessToken);
         if(githubUser !=null){
             User user = new User();
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
-            //登陆成功，写cookie和session
+            response.addCookie(new Cookie("token",token));
+            //登陆成功，写cookie
             request.getSession().setAttribute("user",githubUser); //创建了账户 会自动签发ID
             return "redirect:/";        //跳转到首页 重定向
         }else{
