@@ -18,6 +18,25 @@
 [导航栏](https://v3.bootcss.com/components)
 
 [H2数据库](https://h2database.com/html/main.html)
+
 ## 学习路程
 
-使用github账户登录->
+_使用github账户登录->_
+
+
+## 脚本
+```sql
+
+create table USERS
+(
+    ID           INTEGER auto_increment
+        primary key,
+    ACCOUNT_ID   CHARACTER VARYING(100),
+    NAME         CHARACTER VARYING(50),
+    TOKEN        CHARACTER(36),
+    GMT_CREATE   BIGINT,
+    GMT_MODIFIED BIGINT
+);
+
+
+```
