@@ -12,8 +12,10 @@ import org.springframework.context.annotation.Configuration;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+
 @Configuration
 class OkHttpClientConfig {
+
     @Bean
     public OkHttpClient okHttpClient() {
         return new OkHttpClient.Builder()
