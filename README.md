@@ -40,3 +40,22 @@ create table USERS
 
 
 ```
+```sql
+
+create table QUESTION
+(
+    ID            INTEGER auto_increment
+        primary key,
+    TITLE         CHARACTER VARYING(200),
+    DESCRIPTION   CHARACTER VARYING(1000000000),
+    GMT_CREATE    BIGINT,
+    GMT_MODIFIED  BIGINT,
+    CREATOR       INTEGER,
+    COMMENT_COUNT INTEGER default 0,
+    VIEW_COUNT    INTEGER default 0,
+    LIKE_COUNT    INTEGER default 0,
+    TAG           CHARACTER VARYING(256)
+);
+
+
+```
