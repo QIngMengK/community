@@ -20,7 +20,13 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.media-object:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
 .media-heading {
     font-size: 1.5em;
     margin-bottom: 10px;
@@ -32,4 +38,60 @@
 }
 h2, h3 {
     margin-top: 20px;
+}
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .navbar-default {
+    background-color: #1f1f1f;
+    border-color: #333;
+}
+
+body.dark-mode .navbar-default .navbar-nav>li>a,
+body.dark-mode .navbar-default .navbar-brand {
+    color: #e0e0e0;
+}
+
+body.dark-mode .form-control {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #555;
+}
+
+body.dark-mode .btn-success {
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+}
+
+body.dark-mode .dropdown-menu > li > a {
+    color: #e0e0e0;
+}
+
+body.dark-mode footer {
+    background: linear-gradient(to right, #1e1e1e, #3a3a3a) !important;
+}
+/* 吸顶导航栏 + 渐变动画 */
+.navbar-sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    background: transparent;
+    box-shadow: none;
+}
+
+.navbar-sticky.scrolled {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+body {
+    padding-top: 70px; /* 避免内容被 fixed 导航遮挡 */
 }

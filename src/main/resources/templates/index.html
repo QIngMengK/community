@@ -9,59 +9,49 @@
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 
 </head>
+
 <body>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar navbar-default navbar-sticky" style="background: linear-gradient(to right, #00c6ff, #0072ff); border: none; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Dream社区</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Dream社区</a>
+            <a class="navbar-brand" href="/" style="color: white; font-weight: bold; font-size: 22px;">Dream社区</a>
         </div>
-
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">首页</a></li>
-                <li><a href="#">板块</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">更多 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="搜索问题">
+                    <input type="text" class="form-control" placeholder="搜索问题"
+                           style="border-radius: 20px; border: none; padding-left: 15px;">
                 </div>
-                <button type="submit" class="btn btn-primary">搜索</button>
+                <button type="submit" class="btn btn-light" style="border-radius: 20px; background-color: white; color: #0072ff;">
+                    搜索
+                </button>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li th:if="${session.user != null}">
-                    <a href="/publish">发布</a>
+                    <a href="/publish" style="color: white; font-weight: bold;">发布</a>
                 </li>
                 <li class="dropdown" th:if="${session.user != null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                       th:text="${session.user.getName()}"><span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" style="color: white;">
+                        <img class="media-object" th:src="${session.user.avatarURL}"
+                             style="width: 30px; height: 30px; border-radius: 50%; display: inline-block; margin-right: 8px;">
+                        <span th:text="${session.user.name}"></span>
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li><a href="#">消息中心</a></li>
                         <li><a href="#">个人资料</a></li>
-                        <li><a href="#">退出</a></li>
+                        <li><a href="#">退出登录</a></li>
                     </ul>
                 </li>
+
                 <li th:if="${session.user == null}">
-                    <a href="https://github.com/login/oauth/authorize?client_id=Ov23li2JcwA5O8sSuHnQ&redirect_uri=http://localhost:8887/callback&scope=user&state=1">
-                        登录
-                    </a>
+                    <a href="https://github.com/login/oauth/authorize?client_id=Ov23li2JcwA5O8sSuHnQ&redirect_uri=http://localhost:8887/callback&scope=user&state=1"
+                       style="color: white; font-weight: bold;">登录</a>
                 </li>
+                <li>
+                    <button id="toggle-dark" class="btn btn-dark navbar-btn" style="margin-left: 10px;">🌙 夜间模式</button>
+                </li>
+
             </ul>
         </div>
     </div>
@@ -96,5 +86,66 @@
         </div>
     </div>
 </div>
+<script>
+    const toggleBtn = document.getElementById('toggle-dark');
+    const body = document.body;
+
+    // 加载时判断是否需要开启夜间模式
+    if (localStorage.getItem('dark-mode') === 'true') {
+        body.classList.add('dark-mode');
+        toggleBtn.textContent = '☀️ 日间模式';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const isDark = body.classList.contains('dark-mode');
+        toggleBtn.textContent = isDark ? '☀️ 日间模式' : '🌙 夜间模式';
+        localStorage.setItem('dark-mode', isDark);
+    });
+</script>
+<script>
+    window.addEventListener('scroll', function () {
+        const navbar = document.querySelector('.navbar-sticky');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+</script>
+
+<!-- 波浪背景 -->
+<div style="position:relative; height:120px; overflow:hidden; margin-top:100px;">
+    <svg viewBox="0 0 120 28" preserveAspectRatio="none"
+         style="position:absolute; bottom:0; width:100%; height:100%;">
+        <path d="M0,10 C30,25 70,0 100,20 L120,30 L0,30 Z"
+              fill="#00c6ff" opacity="0.6"/>
+        <path d="M0,15 C30,30 70,5 100,25 L120,30 L0,30 Z"
+              fill="#0072ff" opacity="0.6"/>
+    </svg>
+</div>
+
+<!-- 底部信息卡片 -->
+<footer class="container-fluid text-center" style="background: linear-gradient(to right, #00c6ff, #0072ff); color: white; padding: 40px 20px;">
+    <div class="row">
+        <div class="col-md-4">
+            <h4>关于我们</h4>
+            <p>Dream社区是一个以技术交流为核心的在线平台，致力于构建良好的开发者氛围。</p>
+        </div>
+        <div class="col-md-4">
+            <h4>联系我们</h4>
+            <p>Email: support@dream.com</p>
+            <p>GitHub: github.com/dreamcommunity</p>
+        </div>
+        <div class="col-md-4">
+            <h4>关注我们</h4>
+            <p>微信公众号：Dream社区</p>
+            <p>微博：@Dream社区官方</p>
+        </div>
+    </div>
+    <hr style="border-top: 1px solid rgba(255,255,255,0.3);">
+    <p>&copy; 2025 Dream社区. 保留所有权利.</p>
+</footer>
 </body>
+
 </html>
