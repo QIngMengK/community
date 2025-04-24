@@ -1,12 +1,21 @@
 body{
-    background-color: #e4b9c0;
+    background-color: #b2a9b1;
 }
 .main{
-    background-color: #c99292;
+    background-color: #cebfbf;
     margin: 30px;
 
 }
 .btn-publish{
     float: right;
     margin-bottom: 15px;
+}
+.media-object{
+    width: 60px;
+    height: 60px;
+}
+。text-desc{
+    font-size:12px;
+    font-weight: normal;
+    color:#999;
 }

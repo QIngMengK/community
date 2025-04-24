@@ -56,10 +56,10 @@ public class AuthorizeController {
             response.addCookie(new Cookie("token",token));
             //登陆成功，写cookie
             request.getSession().setAttribute("user",githubUser); //创建了账户 会自动签发ID
-            return "redirect:/";        //跳转到首页 重定向
+            return "index";        //跳转到首页 重定向
         }else{
             //登录失败，重新登录
-            return "redirect:/";
+            return "index";
         }
     }
 }
